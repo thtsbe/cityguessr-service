@@ -1,11 +1,11 @@
 package ch.ttt.cityguessrservice.guess;
 
+import org.springframework.data.mongodb.repository.ReactiveMongoRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public class GuessRepository {
+import java.util.UUID;
 
-    public void save(Guess guess) {
-        // TODO
-    }
+@Repository
+public interface GuessRepository extends ReactiveMongoRepository<Guess, UUID> {
+
 }

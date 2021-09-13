@@ -18,18 +18,12 @@ public class GuessService {
 
     public Mono<Guess> createGuess() {
         final City randomCity = citiesService.getRandomCity();
+
         final Guess guess = new Guess(
                 UUID.randomUUID(),
-                randomCity.getLat(),
-                randomCity.getLng(),
-                "New York",
-                "Manila",
-                "Weissenstein",
-                "Solothurn"
+                randomCity
         );
-
-        // save guess
-        // save guessresult
+        repository.save(guess);
         return Mono.just(guess);
     }
 

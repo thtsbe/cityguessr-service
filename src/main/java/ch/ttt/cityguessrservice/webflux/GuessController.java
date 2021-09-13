@@ -15,8 +15,18 @@ public class GuessController {
     private final GuessService service;
 
     @GetMapping
-    private Mono<Guess> createGuess() {
-        return service.createGuess();
+    private Mono<GuessDTO> createGuess() {
+        // TODO: generate options
+        return service.createGuess()
+                .map(g -> new GuessDTO(
+                        g.getId(),
+                        g.getCity().getLat(),
+                        g.getCity().getLng(),
+                        "New York",
+                        "Manila",
+                        "Weissenstein",
+                        "Solothurn"
+                ));
     }
 
     @PostMapping
