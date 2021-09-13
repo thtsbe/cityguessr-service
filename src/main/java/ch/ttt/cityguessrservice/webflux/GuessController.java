@@ -1,7 +1,6 @@
 package ch.ttt.cityguessrservice.webflux;
 
 import ch.ttt.cityguessrservice.answer.GuessAnswer;
-import ch.ttt.cityguessrservice.guess.Guess;
 import ch.ttt.cityguessrservice.guess.GuessService;
 import ch.ttt.cityguessrservice.result.GuessResult;
 import lombok.RequiredArgsConstructor;
@@ -16,17 +15,7 @@ public class GuessController {
 
     @GetMapping
     private Mono<GuessDTO> createGuess() {
-        // TODO: generate options
-        return service.createGuess()
-                .map(g -> new GuessDTO(
-                        g.getId(),
-                        g.getCity().getLat(),
-                        g.getCity().getLng(),
-                        "New York",
-                        "Manila",
-                        "Weissenstein",
-                        "Solothurn"
-                ));
+        return service.createGuess();
     }
 
     @PostMapping

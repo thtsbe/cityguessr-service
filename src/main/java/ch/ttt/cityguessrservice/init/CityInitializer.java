@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import java.util.stream.Collectors;
 
 @Component
@@ -31,7 +31,7 @@ public class CityInitializer implements CommandLineRunner {
         }
 
         final List<CityImportDTO> jsonCities = objectMapper.readValue(resourceFile.getFile(), new TypeReference<>() {});
-        final AtomicInteger index = new AtomicInteger(0);
+        final AtomicLong index = new AtomicLong(0);
 
         final List<City> cities = jsonCities.stream()
                 .map(c -> new City(
