@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 @Component
 @RequiredArgsConstructor
@@ -33,7 +33,7 @@ public class CityInitializer implements CommandLineRunner {
         final List<CityImportDTO> jsonCities = objectMapper.readValue(resourceFile.getFile(), new TypeReference<>() {});
         final AtomicInteger index = new AtomicInteger(0);
 
-        final Flux<City> cities = Flux.fromIterable(jsonCities)
+        final List<City> cities = jsonCities.stream()
                 .map(c -> new City(
                         index.incrementAndGet(),
                         c.getCity(),
@@ -42,9 +42,9 @@ public class CityInitializer implements CommandLineRunner {
                         c.getCountry(),
                         c.getPopulation(),
                         c.getDensity()
-                ));
+                )).collect(Collectors.toList());
 
-        // repository.saveAll(cities.toIterable()).blockLast();
+        repository.saveAll(cities).blockLast();
     }
 
     private Long count() {
