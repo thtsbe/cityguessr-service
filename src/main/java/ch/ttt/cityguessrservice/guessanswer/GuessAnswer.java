@@ -14,11 +14,14 @@ import java.util.UUID;
 public class GuessAnswer {
     UUID guessId;
     UUID cityId;
+    UUID userId;
 
     @JsonCreator
     public GuessAnswer(@JsonProperty("guessId") final UUID guessId,
-                       @JsonProperty("cityId") final UUID cityId) {
+                       @JsonProperty("cityId") final UUID cityId,
+                       @JsonProperty("userId") final UUID userId) {
         this.guessId = guessId;
         this.cityId = cityId;
+        this.userId = userId;
     }
 }

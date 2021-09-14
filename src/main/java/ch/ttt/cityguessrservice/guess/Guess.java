@@ -15,4 +15,5 @@ import java.util.UUID;
 public class Guess {
     private UUID id;
     private City city;
+    private UUID userId;
 }

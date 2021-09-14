@@ -19,13 +19,13 @@ public class GuessService {
     private final GuessAnswerRepository guessAnswerRepository;
     private final CitiesService citiesService;
 
-    public GuessDTO createGuess() {
+    public GuessDTO createGuess(final UUID userId) {
         final List<City> randomCities = citiesService.getRandomCities(4);
 
         final UUID guessId = UUID.randomUUID();
         final City city = pickRandom(randomCities);
 
-        repository.save(new Guess(guessId, city));
+        repository.save(new Guess(guessId, city, userId));
 
         return new GuessDTO(
                 guessId,
