@@ -1,10 +1,7 @@
 package ch.ttt.cityguessrservice.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -14,10 +11,10 @@ import java.util.UUID;
 public class CheckinController {
     private final CheckinRepository repository;
 
-    @PostMapping("/{username}")
-    public UUID checkin(@PathVariable final String username) {
+    @PostMapping
+    public UUID checkin(@RequestBody final CheckinRequest checkinRequest) {
         final UUID userid = UUID.randomUUID();
-        repository.save(new Checkin(userid, username));
+        repository.save(new Checkin(userid, checkinRequest.getUsername()));
         return userid;
     }
 
