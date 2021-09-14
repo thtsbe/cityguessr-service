@@ -13,7 +13,7 @@ import java.util.UUID;
 public class GuessController {
     private final GuessService service;
 
-    @GetMapping("/{userid}")
+    @GetMapping("/{userId}")
     private GuessDTO createGuess(@PathVariable final UUID userId) {
         return service.createGuess(userId);
     }
