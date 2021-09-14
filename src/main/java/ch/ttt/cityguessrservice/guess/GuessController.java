@@ -14,12 +14,12 @@ public class GuessController {
     private final GuessService service;
 
     @GetMapping("/{userId}")
-    private GuessDTO createGuess(@PathVariable final UUID userId) {
+    public GuessDTO createGuess(@PathVariable final UUID userId) {
         return service.createGuess(userId);
     }
 
     @PostMapping
-    private GuessResult answer(@RequestBody final GuessAnswer answer) {
+    public GuessResult answer(@RequestBody final GuessAnswer answer) {
         return service.checkAnswer(answer);
     }
 }

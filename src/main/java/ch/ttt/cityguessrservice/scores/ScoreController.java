@@ -25,7 +25,6 @@ public class ScoreController {
     private final GuessAnswerRepository answerRepository;
     private final CheckinRepository checkinRepository;
 
-
     @GetMapping
     public List<Scores> getScores() {
         return scoresByUser();
@@ -47,11 +46,17 @@ public class ScoreController {
                 .collect(Collectors.toList());
 
         return new Scores(
-                checkinRepository.findById(userId).map(Checkin::getUsername).orElse(userId.toString()),
+                getUsername(userId),
                 guesses.size(),
                 calculatePoints(scores),
                 scores
         );
+    }
+
+    private String getUsername(final UUID userId) {
+        return checkinRepository
+                .findById(userId).map(Checkin::getUsername)
+                .orElse("unknown");
     }
 
     private int calculatePoints(final List<Score> scores) {
