@@ -4,6 +4,9 @@
     <option name="SPRING_BOOT_MAIN_CLASS" value="ch.ttt.cityguessrservice.CityguessrServiceApplication" />
     <option name="ALTERNATIVE_JRE_PATH" />
     <option name="SHORTEN_COMMAND_LINE" value="NONE" />
+    <envs>
+      <env name="MONGODB_PASSWORD" value="kSMCU2FmzCCbz4rY" />
+    </envs>
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
