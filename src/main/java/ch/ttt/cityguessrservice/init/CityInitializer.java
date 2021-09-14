@@ -11,7 +11,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Component
@@ -26,28 +26,25 @@ public class CityInitializer implements CommandLineRunner {
 
     @Override
     public void run(final String... args) throws Exception {
-        if (count() > 0) {
+        if (repository.count() > 0) {
             return;
         }
 
-        final List<CityImportDTO> jsonCities = objectMapper.readValue(resourceFile.getFile(), new TypeReference<>() {});
-        final AtomicLong index = new AtomicLong(0);
+        final List<CityImportDTO> jsonCities = objectMapper.readValue(resourceFile.getFile(), new TypeReference<>() {
+        });
 
         final List<City> cities = jsonCities.stream()
                 .map(c -> new City(
-                        index.incrementAndGet(),
+                        UUID.randomUUID(),
                         c.getCity(),
                         c.getLat(),
                         c.getLng(),
                         c.getCountry(),
                         c.getPopulation(),
                         c.getDensity()
-                )).collect(Collectors.toList());
+                ))
+                .collect(Collectors.toList());
 
-        repository.saveAll(cities).blockLast();
-    }
-
-    private Long count() {
-        return repository.count().block();
+        repository.saveAll(cities);
     }
 }

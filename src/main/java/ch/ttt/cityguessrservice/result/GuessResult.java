@@ -7,6 +7,6 @@ import java.util.UUID;
 @Value
 public class GuessResult {
     UUID guessId;
-    String answer;
-    String correctAnswer;
+    UUID answerCityId;
+    UUID correctCityId;
 }

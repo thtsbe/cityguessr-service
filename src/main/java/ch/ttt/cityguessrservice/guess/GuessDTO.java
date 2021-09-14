@@ -1,5 +1,6 @@
-package ch.ttt.cityguessrservice.webflux;
+package ch.ttt.cityguessrservice.guess;
 
+import ch.ttt.cityguessrservice.cities.City;
 import lombok.Value;
 import org.springframework.data.annotation.Id;
 
@@ -12,5 +13,5 @@ public class GuessDTO {
     UUID id;
     String lat;
     String lng;
-    List<String> options;
+    List<City> options;
 }
