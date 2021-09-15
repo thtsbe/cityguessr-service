@@ -56,7 +56,8 @@ public class ScoreController {
 
     private String getUsername(final UUID userId) {
         return checkinRepository
-                .findById(userId).map(Checkin::getUsername)
+                .findById(userId)
+                .map(Checkin::getUsername)
                 .orElse("unknown");
     }
 
