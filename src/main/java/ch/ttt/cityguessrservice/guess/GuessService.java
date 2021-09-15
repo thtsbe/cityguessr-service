@@ -1,8 +1,8 @@
 package ch.ttt.cityguessrservice.guess;
 
-import ch.ttt.cityguessrservice.guessanswer.GuessAnswer;
 import ch.ttt.cityguessrservice.cities.CitiesService;
 import ch.ttt.cityguessrservice.cities.City;
+import ch.ttt.cityguessrservice.guessanswer.GuessAnswer;
 import ch.ttt.cityguessrservice.guessanswer.GuessAnswerRepository;
 import ch.ttt.cityguessrservice.result.GuessResult;
 import lombok.RequiredArgsConstructor;
@@ -39,12 +39,19 @@ public class GuessService {
     }
 
     public GuessResult checkAnswer(final GuessAnswer answer) {
-        guessAnswerRepository.save(answer);
-        return repository.findById(answer.getGuessId())
-                .map(g -> new GuessResult(
-                        answer.getGuessId(),
-                        answer.getCityId(),
-                        g.getCity().getId())
-                ).orElseThrow();
+        final UUID correctCityId = repository.findById(answer.getGuessId())
+                .map(Guess::getCity)
+                .map(City::getId)
+                .orElseThrow();
+
+        if (correctCityId.equals(answer.getCityId())) {
+            guessAnswerRepository.save(answer);
+        }
+
+        return new GuessResult(
+                answer.getGuessId(),
+                answer.getCityId(),
+                correctCityId
+        );
     }
 }

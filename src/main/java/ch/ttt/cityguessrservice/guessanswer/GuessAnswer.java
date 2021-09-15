@@ -15,13 +15,16 @@ public class GuessAnswer {
     UUID guessId;
     UUID cityId;
     UUID userId;
+    int score;
 
     @JsonCreator
     public GuessAnswer(@JsonProperty("guessId") final UUID guessId,
                        @JsonProperty("cityId") final UUID cityId,
-                       @JsonProperty("userId") final UUID userId) {
+                       @JsonProperty("userId") final UUID userId,
+                       @JsonProperty("score") final int score) {
         this.guessId = guessId;
         this.cityId = cityId;
         this.userId = userId;
+        this.score = score;
     }
 }
