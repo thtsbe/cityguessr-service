@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 public class CitiesService {
     private final CityRepository repository;
 
-    private static final int MIN_POPULATION = 10_000_000;
-
     public List<City> getRandomCities(final int size) {
-        final List<City> cities = repository.findAllByPopulationGreaterThan(MIN_POPULATION);
+        final List<City> cities = repository.findAllByPopulationGreaterThan(2_000_000).stream()
+                .filter(c -> !c.getCountry().equals("China"))
+                .collect(Collectors.toList());
         Collections.shuffle(cities);
         return cities.stream()
                 .limit(size)

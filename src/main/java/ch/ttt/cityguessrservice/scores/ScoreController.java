@@ -32,6 +32,7 @@ public class ScoreController {
 
     private List<Scores> scoresByUser() {
         final Map<UUID, List<Guess>> map = StreamSupport.stream(guessRepository.findAll().spliterator(), false)
+                .filter(g -> g.getUserId() != null)
                 .collect(Collectors.groupingBy(Guess::getUserId));
 
 
