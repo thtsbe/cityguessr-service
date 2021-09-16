@@ -13,8 +13,8 @@ public class CitiesService {
     private final CityRepository repository;
 
     public List<City> getRandomCities(final int size) {
-        final List<City> cities = repository.findAllByPopulationGreaterThan(2_000_000).stream()
-                .filter(c -> !c.getCountry().equals("China"))
+        final List<City> cities = repository.findAllByPopulationGreaterThan(1_000_000).stream()
+                .filter(c -> !c.getCountry().equals("China") || c.getPopulation() > 10_000_000)
                 .collect(Collectors.toList());
         Collections.shuffle(cities);
         return cities.stream()
